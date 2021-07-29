@@ -2,33 +2,30 @@ package ru.androidlearning.popularlibraries
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import ru.androidlearning.popularlibraries.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainView  {
-    private var vb: ActivityMainBinding? = null
-    val presenter = MainPresenter(this)
+    private lateinit var viewBinding: ActivityMainBinding
+    private val presenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb?.root)
-
-        val listener = View.OnClickListener {
-            presenter.counterClick(it.id)
-        }
-
-        vb?.btnCounter1?.setOnClickListener(listener)
-        vb?.btnCounter2?.setOnClickListener(listener)
-        vb?.btnCounter3?.setOnClickListener(listener)
+        viewBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+        viewBinding.btnCounter1.setOnClickListener { presenter.button1Click() }
+        viewBinding.btnCounter2.setOnClickListener { presenter.button2Click() }
+        viewBinding.btnCounter3.setOnClickListener { presenter.button3Click() }
     }
 
-    //Подсказка к ПЗ: поделить на 3 отдельные функции и избавиться от index
-    override fun setButtonText(index: Int, text: String) {
-        when(index){
-            0 -> vb?.btnCounter1?.text = text
-            1 -> vb?.btnCounter2?.text = text
-            2 -> vb?.btnCounter3?.text = text
-        }
+    override fun setButtonOneText(text: String) {
+        viewBinding.btnCounter1.text = text
+    }
+
+    override fun setButtonTwoText(text: String) {
+        viewBinding.btnCounter2.text = text
+    }
+
+    override fun setButtonThreeText(text: String) {
+        viewBinding.btnCounter3.text = text
     }
 }
