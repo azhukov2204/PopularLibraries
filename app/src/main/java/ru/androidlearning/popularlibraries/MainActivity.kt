@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ru.androidlearning.popularlibraries.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), MainView  {
+class MainActivity : AppCompatActivity(), MainView {
     private lateinit var viewBinding: ActivityMainBinding
-    private val presenter = MainPresenter(this)
+    private val presenter = MainPresenter(this, CountersModel())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,15 +17,15 @@ class MainActivity : AppCompatActivity(), MainView  {
         viewBinding.btnCounter3.setOnClickListener { presenter.button3Click() }
     }
 
-    override fun setButtonOneText(text: String) {
+    override fun showCounterOne(text: String) {
         viewBinding.btnCounter1.text = text
     }
 
-    override fun setButtonTwoText(text: String) {
+    override fun showCounterTwo(text: String) {
         viewBinding.btnCounter2.text = text
     }
 
-    override fun setButtonThreeText(text: String) {
+    override fun showCounterThree(text: String) {
         viewBinding.btnCounter3.text = text
     }
 }
